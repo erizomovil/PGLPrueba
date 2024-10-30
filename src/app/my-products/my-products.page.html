@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>my-products</ion-title>
+    <ion-button expand="block" (click)="gotoHome()">Back</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-button expand="block" (click)="openNewProductModal()">
+    Add Product
+  </ion-button>
+
+  <!-- Dropdown button -->
+  <ion-button expand="block" (click)="toggleDropdown()">
+    Sort Options
+  </ion-button>
+
+  <ion-list *ngIf="dropdownOpen">
+    <ion-item *ngFor="let option of sortOptions" (click)="sortProducts(option)">
+      <ion-label
+        >{{ option.label }}
+        <span *ngIf="option.selected">({{ option.order }})</span></ion-label
+      >
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item *ngFor="let p of products" (click)="toggleOptions(p)">
+      <ion-label>
+        <h1>{{ p.nombre }}</h1>
+        <p>{{ p.precio }}</p>
+        <p>{{ p.fechaCreacion }}</p>
+      </ion-label>
+
+      <ion-buttons *ngIf="p.isSelected" slot="end">
+        <ion-button class="btEdit" (click)="put(p)">Edit</ion-button>
+        <ion-button class="btDelete" (click)="delete(p)">Delete</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>
